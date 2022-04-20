@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+
+body .calcular-grados form {
+    display: grid;
+    column-gap: 20px;
+    width: fit-content;
+    grid-template-columns: 220px 150px 110px 110px;
+    grid-template-rows: repeat(2,50px);
+    justify-items: center;
+    align-items: center;
+    border: black 0.18rem solid;
+    padding: 0.5rem;
+}
+
+body .calcular-grados form button {
+    justify-self: stretch;
+    background-color: #f2f2f2;
+    border: black 0.1rem solid;
+    cursor: pointer;
+}
+
+body .calcular-grados form input {
+    width: 100px;
+    text-align: center;
+    border: black 0.1rem solid;
+}
+
+body .calcular-grados form #resultado {
+    background-color: greenyellow;
+}
