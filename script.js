@@ -1,37 +1,3 @@
-// DESAFIO 2
-
-// const $botonCalcular = document.querySelector('#calcular')
-// const $botonReset = document.querySelector('#reset')
-
-// $botonCalcular.onclick = function(){
-//     const absoluteZero = -459.67
-//     const valor = Number(document.querySelector('#grados-F').value)
-
-//     if (isNaN(valor)) {
-//         alert('Ingrese un valor válido.')
-//     } else if (valor < absoluteZero) {
-//         alert('Ese valor se encuentra por debajo del cero absoluto (-459.67 °F), intente con un mayor valor.')
-//         return;
-//     } else {
-//         resultado = ((valor - 32) * 5/9).toFixed(2)
-
-//         if (resultado > 40) {
-//             document.querySelector('#resultado').value = `${resultado}°C`
-//             alert('Ponete protector solar!')
-//         } else {
-//             document.querySelector('#resultado').value = `${resultado}°C`
-//         }
-//     }
-// }
-
-// $botonReset.onclick = function(){
-//     document.querySelector('#grados-F').value = ""
-//     document.querySelector('#resultado').value = ""
-// }
-
-
-
-
 // DESAFIO 3
 
 const menu = [];  // Array de todas las comidas disponibles
@@ -71,8 +37,6 @@ function veganDays() {
             if (meal.vegan) {
                 meal.veganDiscount();
                 console.log(`El valor de ${meal.name} es de $${meal.price} (c/IVA)`);
-            } else {
-                alert('No se encontraron productos veganos en el menu.');
             }
         }
 
@@ -82,68 +46,76 @@ function veganDays() {
     }
 }
 
+
+function keepLoadingCheck() {
+    let keepLoading;
+    keepLoading = prompt('¿Desea ingresar otro producto? S/N').toUpperCase();
+    if (keepLoading == "S") {
+        return true;
+    } else if (keepLoading == "N") {
+        return false;
+    } else {
+        alert('Ingrese S para Si o N para No.');
+        keepLoadingCheck();
+    }
+}
+
+function veganCheck() {
+    let productVegan;
+    productVegan = prompt('¿Este producto es vegano? S/N').toUpperCase();
+    if (productVegan == "S") {
+        return true;
+    } else if (productVegan == "N") {
+        return false;
+    } else {
+        alert('Ingrese S para Si o N para No.');
+        veganCheck();
+    }
+}
+
+function addProduct() {
+    let productName, productPrice;
+    let keepLoading = true;
+    let manualLoad = prompt('¿Desea ingresar un producto? S/N').toUpperCase();
+    if (manualLoad == "S") {   
+        while (keepLoading) {
+            productName = prompt('Ingrese el nombre del producto');
+            productPrice = prompt('Ingrese el precio del producto');
+            menu.push(new Food(productName, productPrice, veganCheck()));
+            keepLoading = keepLoadingCheck();
+        }
+        return menu;
+    } else {
+        return;
+    }
+}
+
+const deleteProduct = () => {
+    let index, name;
+    let deleteConfirm = prompt('¿Desea eliminar un producto? S/N').toUpperCase();
+    let deleted = false;
+    if (deleteConfirm == "S") {
+        name = prompt('¿Que producto desea eliminar?');
+        for (const Food of menu) {
+            if (Food.name == name) {
+                index = menu.indexOf(Food);
+                menu.splice(index, 1);
+                alert(`El producto ${name} ha sido eliminado con éxito.`);
+                deleted = true;
+            }
+        }
+        if (!deleted) {
+            alert(`No se ha encontrado el producto llamado ${name}`);        
+        }
+    } else if (deleteConfirm != "N") {
+        alert('Ingrese S para Si o N para No.');
+        deleteProduct();
+    }
+    return menu;
+}
+
+addProduct();
 applyIVA();
 veganDays();
+deleteProduct();
 console.log(menu);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// function addToMenu(name, price, vegan) {
-//     const comida = new Food(name, price, vegan);
-//     menu.push(comida);
-//     return menu;
-// }
-
-// function createMenu() {
-//     let name;
-//     let price;
-//     let vegan;
-//     let keepLoading = true;
-//     while (keepLoading == true) {
-//         name = prompt('Ingrese el nombre de la comida');
-//         price = prompt('Ingrese el valor de la comida');
-//         let isVegan = prompt('¿Es una comida vegana? (S/N)').toUpperCase();
-//         if (isVegan == "S") {
-//             vegan = true;
-//         } else {
-//             vegan = false;
-//         }
-        
-//         addToMenu(name, price, vegan);
-
-//         let addAnotherProduct = prompt('¿Desea cargar otro producto? (S/N)').toUpperCase();
-
-//         if (addAnotherProduct == "S") {
-//             keepLoading = true;
-//         } else {
-//             keepLoading = false;
-//         }
-//     }
-// }
-
-// function addIVA() {
-//     let product = prompt('¿Sobre que producto desea aplicar el IVA?').toLowerCase();
-
-//     if (menu.find(food => food.name == product)) {
-//         Food.addIVA();
-//     } else {
-//         alert('No se ha encontrado el producto.');
-//     }
-// }
-
-// createMenu();
-// addIVA();
-
-
